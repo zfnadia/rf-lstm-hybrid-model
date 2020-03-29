@@ -141,7 +141,10 @@ print(len(train), len(test))
 print(train.shape, test.shape)
 
 # scaling the features for better result
-f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen']
+# f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen']
+
+f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen', 'eve_peak_load_shedding',
+             'max_temp', 'total_gas', 'day_of_week', 'day_of_month', 'month', 'is_weekend', 'season']
 
 f_transformer = RobustScaler()
 total_energy_transformer = RobustScaler()
@@ -228,36 +231,36 @@ print('MSE: ', metrics.mean_squared_error(y_test, y_pred))
 print('RMSE: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 print('MAPE: ', metrics.mean_absolute_error(y_test, y_pred, multioutput='uniform_average'))
 
-# plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
-# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), marker='.', label="true")
-# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_pred_inv.flatten(), 'r', label="prediction")
-# plt.ylabel('electricity consumption (MKWh)')
-# plt.xlabel('time step')
-# plt.legend()
-# plt.savefig('../assets_lstm_2/lstm_test_vs_train_all_feat.png', bbox_inches='tight')
-# plt.show()
-#
-# plt.plot(y_test_inv.flatten(), marker='.', label="true")
-# plt.plot(y_pred_inv.flatten(), 'r', label="prediction")
-# plt.ylabel('electricity Consumption (MKWh)')
-# plt.xlabel('time step')
-# plt.legend()
-# plt.savefig('../assets_lstm_2/total_test_vs_train_all_feat.png', bbox_inches='tight')
-# plt.show()
-
 plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
 plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), marker='.', label="true")
 plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_pred_inv.flatten(), 'r', label="prediction")
 plt.ylabel('electricity consumption (MKWh)')
 plt.xlabel('time step')
 plt.legend()
-plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/lstm_test_vs_train_all_feat.png', bbox_inches='tight')
 plt.show()
 
 plt.plot(y_test_inv.flatten(), marker='.', label="true")
-plt.plot(y_pred_inv.flatten(), 'r',  marker='.', label="prediction")
+plt.plot(y_pred_inv.flatten(), 'r', label="prediction")
 plt.ylabel('electricity Consumption (MKWh)')
 plt.xlabel('time step')
 plt.legend()
-plt.savefig('../assets_lstm_2/total_test_vs_train_imp_feat.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/total_test_vs_train_all_feat.png', bbox_inches='tight')
 plt.show()
+
+# plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
+# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), marker='.', label="true")
+# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_pred_inv.flatten(), 'r', label="prediction")
+# plt.ylabel('electricity consumption (MKWh)')
+# plt.xlabel('time step')
+# plt.legend()
+# plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tight')
+# plt.show()
+#
+# plt.plot(y_test_inv.flatten(), marker='.', label="true")
+# plt.plot(y_pred_inv.flatten(), 'r',  marker='.', label="prediction")
+# plt.ylabel('electricity Consumption (MKWh)')
+# plt.xlabel('time step')
+# plt.legend()
+# plt.savefig('../assets_lstm_2/total_test_vs_train_imp_feat.png', bbox_inches='tight')
+# plt.show()
