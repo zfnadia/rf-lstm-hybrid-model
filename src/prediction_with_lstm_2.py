@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import tensorflow as tf
+import keras.backend as K
 from pandas.plotting import register_matplotlib_converters
 from pylab import rcParams
 from sklearn.preprocessing import RobustScaler
@@ -168,7 +169,7 @@ def create_dataset(X, y, time_steps=1):
 
 
 # take last 30 days to predict the data of the next day
-time_steps = 30
+time_steps = 10
 
 # reshape to [samples, time_steps, n_features]
 # (1270, 30, 14) (1270,)
@@ -178,6 +179,10 @@ X_test, y_test = create_dataset(test, test.total_energy, time_steps)
 # reshape to [samples, time_steps, n_features]
 # (1270, 30, 14) (1270,)
 print(X_train.shape, y_train.shape)
+
+
+def percentage_difference(y_true, y_pred):
+    return K.mean(abs(y_pred/y_true - 1) * 100)
 
 model = keras.Sequential()
 model.add(
@@ -190,11 +195,11 @@ model.add(
 )
 model.add(keras.layers.Dropout(rate=0.2))
 model.add(keras.layers.Dense(units=1))
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
 
 history = model.fit(
     X_train, y_train,
-    epochs=200,
+    epochs=300,
     batch_size=512,
     validation_split=0.1,
     shuffle=False
@@ -217,6 +222,7 @@ y_pred = model.predict(X_test)
 y_train_inv = total_energy_transformer.inverse_transform(y_train.reshape(1, -1))
 y_test_inv = total_energy_transformer.inverse_transform(y_test.reshape(1, -1))
 y_pred_inv = total_energy_transformer.inverse_transform(y_pred)
+
 
 print('MSE: ', metrics.mean_squared_error(y_test, y_pred))
 print('RMSE: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
@@ -249,7 +255,7 @@ plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tig
 plt.show()
 
 plt.plot(y_test_inv.flatten(), marker='.', label="true")
-plt.plot(y_pred_inv.flatten(), 'r', label="prediction")
+plt.plot(y_pred_inv.flatten(), 'r',  marker='.', label="prediction")
 plt.ylabel('electricity Consumption (MKWh)')
 plt.xlabel('time step')
 plt.legend()
