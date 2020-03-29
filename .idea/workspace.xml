@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d3442b70-ea38-459d-a4b5-8bd5ed5df458" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/prediction_with_lstm_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/prediction_with_lstm_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/prediction_with_random_forest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/prediction_with_random_forest.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,18 +32,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/csv_files/thesis_data_pre_thesis_2.csv">
-          <provider selected="true" editor-type-id="csv-text-editor" />
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/prediction_with_lstm_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="147" lean-forward="true" selection-start-line="147" selection-end-line="147" />
+            <state relative-caret-position="2">
+              <caret line="233" selection-start-line="233" selection-end-line="241" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -49,9 +43,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets_lstm_2/seasonality_by_weekend.png">
-          <provider selected="true" editor-type-id="images" />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="381">
+              <caret line="90" column="92" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="92" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -107,8 +108,8 @@
         <option value="$PROJECT_DIR$/csv_files/main_dataset.csv" />
         <option value="$PROJECT_DIR$/csv_files/main_dataset_2.csv" />
         <option value="$PROJECT_DIR$/csv_files/main_dataset_lstm2.csv" />
-        <option value="$PROJECT_DIR$/src/prediction_with_random_forest.py" />
         <option value="$PROJECT_DIR$/src/prediction_with_lstm_2.py" />
+        <option value="$PROJECT_DIR$/src/prediction_with_random_forest.py" />
       </list>
     </option>
   </component>
@@ -148,6 +149,11 @@
             <path>
               <item name="RFLSTMHybridModel" type="b2602c69:ProjectViewProjectNode" />
               <item name="FinalThesisCode" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RFLSTMHybridModel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FinalThesisCode" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RFLSTMHybridModel" type="b2602c69:ProjectViewProjectNode" />
@@ -364,7 +370,7 @@
       <workItem from="1585053559178" duration="443000" />
       <workItem from="1585054020101" duration="10753000" />
       <workItem from="1585207131218" duration="11954000" />
-      <workItem from="1585319393134" duration="45289000" />
+      <workItem from="1585319393134" duration="50860000" />
     </task>
     <task id="LOCAL-00001" summary="added new LSTM model and updated RF model">
       <created>1585457171547</created>
@@ -394,16 +400,30 @@
       <option name="project" value="LOCAL" />
       <updated>1585468081330</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="dot file generated">
+      <created>1585468431052</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585468431052</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added learning curve for imp features">
+      <created>1585473755229</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585473755229</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69509000" />
+    <option name="totallyTimeSpent" value="75080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-320" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.21588486" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.17857143" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50063694" side_tool="true" weight="0.065565035" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -417,13 +437,13 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010661" side_tool="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4989339" weight="0.936078" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49892008" visible="true" weight="0.22333333" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4989339" visible="true" weight="0.35666665" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49892008" weight="0.22333333" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" sideWeight="0.4962963" weight="0.23134328" />
-      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.9385965" visible="true" weight="0.54744136" />
+      <window_info anchor="right" id="SciView" order="4" sideWeight="0.9385965" weight="0.29157782" />
       <window_info anchor="right" x="0" y="0" width="196" height="847" id="Documentation" order="5" sideWeight="0.06140351" side_tool="true" weight="0.33315566" />
     </layout>
     <layout-to-restore>
@@ -459,42 +479,11 @@
     <MESSAGE value="generated LSTM graphs for imp features" />
     <MESSAGE value="tested for time_step = 10" />
     <MESSAGE value="graph generated for time_step = 10, all features" />
-    <option name="LAST_COMMIT_MESSAGE" value="graph generated for time_step = 10, all features" />
+    <MESSAGE value="dot file generated" />
+    <MESSAGE value="added learning curve for imp features" />
+    <option name="LAST_COMMIT_MESSAGE" value="added learning curve for imp features" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/csv_files/2018_ramadan.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="630">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/csv_files/2016_ramadan.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="630">
-          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/csv_files/2015_ramadan.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="609">
-          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lstm.py" />
-    <entry file="file://$PROJECT_DIR$/final_dataset.csv___jb_old___" />
-    <entry file="file://$PROJECT_DIR$/final_dataset.csv___jb_tmp___" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pandas/core/generic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -525,13 +514,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/small_tree.dot" />
-    <entry file="file://$PROJECT_DIR$/src/tree.dot">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="8" lean-forward="true" selection-end-line="32" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pydot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-961">
@@ -554,9 +536,6 @@
     <entry file="file://$PROJECT_DIR$/assets/lstm_learning_curve2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/lstm_learning_curve_all_feat.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/lstm_model_loss.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -573,9 +552,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/csv_files/rf_dataset.csv" />
     <entry file="file://$PROJECT_DIR$/assets/weekday_vs_weekend.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/var_imp_rf.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/scatter_temp_gas.png">
@@ -689,23 +665,6 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/sklearn/ensemble/_forest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="744" column="8" selection-start-line="744" selection-start-column="8" selection-end-line="744" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets_lstm_2/total_test_vs_train.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -715,15 +674,67 @@
     <entry file="file://$PROJECT_DIR$/assets_lstm_2/seasonality_by_weekday.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets_lstm_2/var_imp_rf.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets_lstm_2/day_vs_total_energy.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets_lstm_2/seasonality_by_weekend.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tree.dot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/sklearn/model_selection/_split.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="2019" column="4" selection-start-line="2019" selection-start-column="4" selection-end-line="2019" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/sklearn/ensemble/_forest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-785">
+          <caret line="1386" column="8" selection-start-line="1386" selection-start-column="8" selection-end-line="1386" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/var_imp_rf.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/lstm_learning_curve_all_feat.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets_lstm_2/lstm_loss_all_feat.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_all_feat.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_imp_feat.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/prediction_with_lstm_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="147" lean-forward="true" selection-start-line="147" selection-end-line="147" />
+        <state relative-caret-position="2">
+          <caret line="233" selection-start-line="233" selection-end-line="241" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="90" column="92" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
