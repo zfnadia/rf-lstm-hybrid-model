@@ -88,4 +88,4 @@ export_graphviz(tree_small, out_file='tree.dot', feature_names=feature_list, rou
                 proportion=False, filled=True)
 # Terminal commands to generate decision tree graph from dot file
 # D:\RFLSTMHybridModel\src>set path=%path%;C:\Program Files (x86)\Graphviz2.38\bin
-# D:\RFLSTMHybridModel\src>dot -Tpdf tree.dot -o ../assets/rf_decision_tree_graph.pdf
+# D:\RFLSTMHybridModel\src>dot -Tpdf tree.dot -o ../assets_lstm_2/rf_decision_tree_graph.pdf
