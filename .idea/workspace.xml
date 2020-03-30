@@ -3,8 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d3442b70-ea38-459d-a4b5-8bd5ed5df458" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/lstm_loss_all_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/lstm_loss_all_feat.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/lstm_loss_imp_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/lstm_loss_imp_feat.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/lstm_test_vs_train_all_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/lstm_test_vs_train_all_feat.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/lstm_test_vs_train_imp_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/lstm_test_vs_train_imp_feat.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_all_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_all_feat.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_imp_feat.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_imp_feat.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/prediction_with_lstm_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/prediction_with_lstm_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prediction_with_random_forest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/prediction_with_random_forest.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/prediction_with_lstm_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="233" selection-start-line="233" selection-end-line="241" />
+            <state relative-caret-position="242">
+              <caret line="134" column="34" lean-forward="true" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="34" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -43,11 +48,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/plotting.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2369">
+              <caret line="49" column="60" lean-forward="true" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/matplotlib/pyplot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="2759" column="4" selection-start-line="2759" selection-start-column="4" selection-end-line="2759" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="90" column="92" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="92" />
+            <state relative-caret-position="438">
+              <caret line="87" column="43" lean-forward="true" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -73,7 +99,11 @@
       <find>out2</find>
       <find>self.prog</find>
       <find>date</find>
+      <find>markersize='12'</find>
     </findStrings>
+    <replaceStrings>
+      <replace>markersize='12'</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -108,8 +138,8 @@
         <option value="$PROJECT_DIR$/csv_files/main_dataset.csv" />
         <option value="$PROJECT_DIR$/csv_files/main_dataset_2.csv" />
         <option value="$PROJECT_DIR$/csv_files/main_dataset_lstm2.csv" />
-        <option value="$PROJECT_DIR$/src/prediction_with_lstm_2.py" />
         <option value="$PROJECT_DIR$/src/prediction_with_random_forest.py" />
+        <option value="$PROJECT_DIR$/src/prediction_with_lstm_2.py" />
       </list>
     </option>
   </component>
@@ -370,7 +400,7 @@
       <workItem from="1585053559178" duration="443000" />
       <workItem from="1585054020101" duration="10753000" />
       <workItem from="1585207131218" duration="11954000" />
-      <workItem from="1585319393134" duration="50860000" />
+      <workItem from="1585319393134" duration="59402000" />
     </task>
     <task id="LOCAL-00001" summary="added new LSTM model and updated RF model">
       <created>1585457171547</created>
@@ -414,14 +444,29 @@
       <option name="project" value="LOCAL" />
       <updated>1585473755229</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="generated decision tree graph and fixed marker issue in lstm graph">
+      <created>1585481351179</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585481351179</updated>
+    </task>
+    <task id="LOCAL-00008" summary="lstm graph bug fixed">
+      <created>1585481670541</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585481670541</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75080000" />
+    <option name="totallyTimeSpent" value="83622000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-320" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.17857143" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -437,13 +482,13 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010661" side_tool="true" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4989339" visible="true" weight="0.35666665" />
-      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49892008" weight="0.22333333" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4989339" weight="0.35666665" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49892008" visible="true" weight="0.22333333" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" sideWeight="0.4962963" weight="0.23134328" />
-      <window_info anchor="right" id="SciView" order="4" sideWeight="0.9385965" weight="0.29157782" />
+      <window_info active="true" anchor="right" id="SciView" order="4" sideWeight="0.9385965" visible="true" weight="0.3923241" />
       <window_info anchor="right" x="0" y="0" width="196" height="847" id="Documentation" order="5" sideWeight="0.06140351" side_tool="true" weight="0.33315566" />
     </layout>
     <layout-to-restore>
@@ -481,16 +526,11 @@
     <MESSAGE value="graph generated for time_step = 10, all features" />
     <MESSAGE value="dot file generated" />
     <MESSAGE value="added learning curve for imp features" />
-    <option name="LAST_COMMIT_MESSAGE" value="added learning curve for imp features" />
+    <MESSAGE value="generated decision tree graph and fixed marker issue in lstm graph" />
+    <MESSAGE value="lstm graph bug fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="lstm graph bug fixed" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/pandas/core/generic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5273" selection-start-line="5273" selection-end-line="5273" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/scipy/spatial/transform/rotation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2056">
@@ -608,16 +648,6 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plotting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1029">
-          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/keras/layers/recurrent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="103">
@@ -719,22 +749,39 @@
     <entry file="file://$PROJECT_DIR$/assets_lstm_2/total_test_vs_train_imp_feat.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/prediction_with_lstm_2.py">
+    <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="233" selection-start-line="233" selection-end-line="241" />
+        <state relative-caret-position="438">
+          <caret line="87" column="43" lean-forward="true" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/prediction_with_random_forest.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/matplotlib/pyplot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="90" column="92" lean-forward="true" selection-start-line="90" selection-start-column="27" selection-end-line="90" selection-end-column="92" />
+        <state relative-caret-position="216">
+          <caret line="2759" column="4" selection-start-line="2759" selection-start-column="4" selection-end-line="2759" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plotting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2369">
+          <caret line="49" column="60" lean-forward="true" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="60" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/prediction_with_lstm_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="134" column="34" lean-forward="true" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
