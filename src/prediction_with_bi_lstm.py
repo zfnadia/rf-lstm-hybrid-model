@@ -61,6 +61,19 @@ df.to_csv('../csv_files/main_dataset_2.csv', index=False)
 df = pd.read_csv('../csv_files/main_dataset_2.csv', parse_dates=['timestamp'], index_col="timestamp",
                  infer_datetime_format=True)
 print(df.head())
+print(df.describe())
+
+## decomposition graph
+# import statsmodels.api as sm
+#
+# y = df['total_energy']
+# decomposition = sm.tsa.seasonal_decompose(y, model='additive')
+# fig = decomposition.plot()
+# plt.xlabel('timestamp')
+# plt.savefig('../assets_lstm_2/decomposition.png', bbox_inches='tight')
+#
+# plt.show()
+
 
 ## timestamp_vs_energy plot
 # index_vs_energy_plot = sns.lineplot(x=df.index, y="total_energy", data=df, legend='brief')
@@ -141,10 +154,10 @@ print(len(train), len(test))
 print(train.shape, test.shape)
 
 # scaling the features for better result
-f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen']
+# f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen']
 
-# f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen', 'eve_peak_load_shedding',
-#              'max_temp', 'total_gas', 'day_of_week', 'day_of_month', 'month', 'is_weekend', 'season']
+f_columns = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen', 'eve_peak_load_shedding',
+             'max_temp', 'total_gas', 'day_of_week', 'day_of_month', 'month', 'is_weekend', 'season']
 
 f_transformer = RobustScaler()
 total_energy_transformer = RobustScaler()
@@ -171,46 +184,87 @@ def create_dataset(X, y, time_steps=1):
     return np.array(Xs), np.array(ys)
 
 
-# take last 30 days to predict the data of the next day
+# take last 10 days to predict the data of the next day
 time_steps = 10
 
 # reshape to [samples, time_steps, n_features]
-# (1270, 30, 14) (1270,)
+# (1013, 10, 14) (1013,)
 X_train, y_train = create_dataset(train, train.total_energy, time_steps)
 X_test, y_test = create_dataset(test, test.total_energy, time_steps)
 
 # reshape to [samples, time_steps, n_features]
-# (1270, 30, 14) (1270,)
+# (1013, 10, 14) (1013,)
 print(X_train.shape, y_train.shape)
 
 
 def percentage_difference(y_true, y_pred):
     return K.mean(abs(y_pred/y_true - 1) * 100)
 
-model = keras.Sequential()
-model.add(
-    keras.layers.Bidirectional(
-        keras.layers.LSTM(
-            units=128,  # units is number of neurons
-            input_shape=(X_train.shape[1], X_train.shape[2])  # 30, 14
-        )
+modelLstm = keras.Sequential()
+modelLstm.add(
+    keras.layers.LSTM(
+        units=128,  # units is number of neurons
+        input_shape=(X_train.shape[1], X_train.shape[2])  # 30, 14
     )
 )
-model.add(keras.layers.Dropout(rate=0.2))
-model.add(keras.layers.Dense(units=1))
-model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
+modelLstm.add(keras.layers.Dropout(rate=0.2))
+modelLstm.add(keras.layers.Dense(units=1))
+modelLstm.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
 
-history = model.fit(
+historyLSTM = modelLstm.fit(
     X_train, y_train,
-    epochs=300,
+    epochs=700,
     batch_size=512,
     validation_split=0.1,
     shuffle=False
 )
 
+modelBiLstm = keras.Sequential()
+modelBiLstm.add(
+    keras.layers.Bidirectional(
+            keras.layers.LSTM(
+                units=128,  # units is number of neurons
+                input_shape=(X_train.shape[1], X_train.shape[2])  # 10, 14
+            )
+        )
+)
+modelBiLstm.add(keras.layers.Dropout(rate=0.2))
+modelBiLstm.add(keras.layers.Dense(units=1))
+modelBiLstm.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
+
+historyBiLstm = modelBiLstm.fit(
+    X_train, y_train,
+    epochs=700,
+    batch_size=512,
+    validation_split=0.1,
+    shuffle=False
+)
+
+modelRFBiLstm = keras.Sequential()
+modelRFBiLstm.add(
+    keras.layers.Bidirectional(
+            keras.layers.LSTM(
+                units=128,  # units is number of neurons
+                input_shape=(X_train.shape[1], X_train.shape[2])  # 10, 14
+            )
+        )
+)
+modelRFBiLstm.add(keras.layers.Dropout(rate=0.2))
+modelRFBiLstm.add(keras.layers.Dense(units=1))
+modelRFBiLstm.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
+
+historyRFBiLstm = modelRFBiLstm.fit(
+    X_train, y_train,
+    epochs=700,
+    batch_size=512,
+    validation_split=0.1,
+    shuffle=False
+)
+
+
 plt.clf()
-loss = history.history['loss']
-val_loss = history.history['val_loss']
+loss = historyRFBiLstm.history['loss']
+val_loss = historyRFBiLstm.history['val_loss']
 epochs = range(1, len(loss) + 1)
 plt.plot(epochs, loss, 'g', label='training loss', linewidth=3)
 plt.plot(epochs, val_loss, 'y', label='validation loss', linewidth=3)
@@ -218,35 +272,58 @@ plt.title('training and validation loss')
 plt.xlabel('epochs')
 plt.ylabel('loss')
 plt.legend()
-plt.savefig('../assets_lstm_2/lstm_loss_imp_feat.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_all_feat.png', bbox_inches='tight')
+# plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_imp_feat.png', bbox_inches='tight')
 plt.show()
 
-y_pred = model.predict(X_test)
+y_pred_lstm = modelLstm.predict(X_test)
+y_pred_bi_lstm = modelBiLstm.predict(X_test)
+y_pred_rf_bi_lstm = modelRFBiLstm.predict(X_test)
 y_train_inv = total_energy_transformer.inverse_transform(y_train.reshape(1, -1))
 y_test_inv = total_energy_transformer.inverse_transform(y_test.reshape(1, -1))
-y_pred_inv = total_energy_transformer.inverse_transform(y_pred)
+y_pred_inv_lstm = total_energy_transformer.inverse_transform(y_pred_lstm)
+y_pred_inv_bi_lstm = total_energy_transformer.inverse_transform(y_pred_bi_lstm)
+y_pred_inv_rf_bi_lstm = total_energy_transformer.inverse_transform(y_pred_rf_bi_lstm)
 
-print('MSE: ', metrics.mean_squared_error(y_test, y_pred))
-print('RMSE: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
-print('MAPE: ', metrics.mean_absolute_error(y_test, y_pred, multioutput='uniform_average'))
 
-plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
-plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), linewidth=3, marker='.',
-         markersize='12', label="true")
-plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_pred_inv.flatten(), 'r', linewidth=3, marker='.',
-         markersize='12', label="prediction")
-plt.ylabel('electricity consumption (MKWh)')
-plt.xlabel('time step')
-plt.legend()
-# plt.savefig('../assets_lstm_2/lstm_test_vs_train_all_feat.png', bbox_inches='tight')
-plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tight')
-plt.show()
+def mean_absolute_percentage_error(y_true, y_pred):
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
-plt.plot(y_test_inv.flatten(), marker='.', label="true", linewidth=3, markersize='12')
-plt.plot(y_pred_inv.flatten(), 'r', marker='.', label="prediction", linewidth=3, markersize='12')
+
+print('MSE LSTM: ', metrics.mean_squared_error(y_test, y_pred_lstm))
+print('RMSE LSTM: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred_lstm)))
+print('MAE LSTM: ', metrics.mean_absolute_error(y_test, y_pred_lstm))
+print('MAPE LSTM: ', mean_absolute_percentage_error(y_test, y_pred_lstm))
+
+print('MSE bi-LSTM: ', metrics.mean_squared_error(y_test, y_pred_bi_lstm))
+print('RMSE bi-LSTM: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred_bi_lstm)))
+print('MAE bi-LSTM: ', metrics.mean_absolute_error(y_test, y_pred_bi_lstm))
+print('MAPE bi-LSTM: ', mean_absolute_percentage_error(y_test, y_pred_bi_lstm))
+
+print('MSE rf-bi-LSTM: ', metrics.mean_squared_error(y_test, y_pred_rf_bi_lstm))
+print('RMSE rf-bi-LSTM: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred_rf_bi_lstm)))
+print('MAE rf-bi-LSTM: ', metrics.mean_absolute_error(y_test, y_pred_rf_bi_lstm))
+print('MAPE rf-bi-LSTM: ', mean_absolute_percentage_error(y_test, y_pred_rf_bi_lstm))
+
+plt.plot(y_test_inv.flatten(), 'b', marker='D', label="true value", linewidth=2, markersize='6')
+plt.plot(y_pred_inv_lstm.flatten(), 'y', marker='<', label="LSTM", linewidth=2, markersize='7')
+plt.plot(y_pred_inv_rf_bi_lstm.flatten(), 'r', marker='>', label="bi-LSTM", linewidth=2, markersize='7')
 plt.ylabel('electricity Consumption (MKWh)')
 plt.xlabel('time step')
 plt.legend()
-# plt.savefig('../assets_lstm_2/total_test_vs_train_all_feat.png', bbox_inches='tight')
-plt.savefig('../assets_lstm_2/total_test_vs_train_imp_feat.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/total_test_vs_train_all_feat.png', bbox_inches='tight')
+# plt.savefig('../assets_lstm_2/total_test_vs_train_imp_feat.png', bbox_inches='tight')
 plt.show()
+
+# plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
+# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), linewidth=3, marker='.',
+#          markersize='12', label="true")
+# plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_pred_inv.flatten(), 'r', linewidth=3, marker='.',
+#          markersize='12', label="prediction")
+# plt.ylabel('electricity consumption (MKWh)')
+# plt.xlabel('time step')
+# plt.legend()
+# # plt.savefig('../assets_lstm_2/lstm_test_vs_train_all_feat.png', bbox_inches='tight')
+# plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tight')
+# plt.show()

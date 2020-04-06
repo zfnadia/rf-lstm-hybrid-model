@@ -30,14 +30,14 @@ df = np.array(df)
 # Split the data into training and testing sets
 # test_size=0.3 means 70% data is used to train the model and the rest is used for test
 # The random state to 42 means the results will be the same each time I run the split for reproducible results
-x_train, x_test, y_train, y_test = train_test_split(df, labels, test_size=0.3, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(df, labels, test_size=0.1, random_state=42)
 print('Training Features Shape:', x_train.shape)
 print('Training Labels Shape:', y_train.shape)
 print('Testing Features Shape:', x_test.shape)
 print('Testing Labels Shape:', y_test.shape)
 
 # Instantiate model
-rf = RandomForestRegressor(n_estimators=100, random_state=42)
+rf = RandomForestRegressor(n_estimators=200, max_depth=None, min_samples_leaf=2, min_samples_split=2)
 
 # Train the model on training data
 rf.fit(x_train, y_train)
