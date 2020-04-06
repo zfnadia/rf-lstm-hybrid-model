@@ -7,6 +7,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.tree import export_graphviz
+from sklearn.metrics import r2_score
+from rfpimp import permutation_importances
 
 df = pd.read_csv('../csv_files/main_dataset_2.csv')
 print(df.info())
@@ -44,6 +46,7 @@ rf.fit(x_train, y_train)
 
 # Use the forest's predict method on the test data
 y_pred = rf.predict(x_test)
+
 # Calculate the absolute errors
 errors = abs(y_pred - y_test)
 rms = sqrt(mean_squared_error(y_test, y_pred))
