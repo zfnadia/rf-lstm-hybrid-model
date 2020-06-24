@@ -25,12 +25,12 @@ Pandas implicitly recognizes the format by agr infer_datetime_format=True
 https://stackoverflow.com/questions/17465045/can-pandas-automatically-recognize-dates
 """
 
-df = pd.read_csv('../csv_files/main_dataset_lstm_2.csv', parse_dates=['timestamp'], infer_datetime_format=True)
+df = pd.read_csv('../csv_files/main_dataset.csv', parse_dates=['date'], infer_datetime_format=True)
 
 # df['day_of_week'], df['day_of_month'], df['month'], df['is_weekend'],
-df['day_of_week'] = df['timestamp'].dt.dayofweek  # monday = 0, sunday = 6
-df['day_of_month'] = df['timestamp'].dt.day
-df['month'] = df['timestamp'].dt.month
+df['day_of_week'] = df['date'].dt.dayofweek  # monday = 0, sunday = 6
+df['day_of_month'] = df['date'].dt.day
+df['month'] = df['date'].dt.month
 df['is_weekend'] = 0  # Initialize the column with default value of 0
 df.loc[df['day_of_week'].isin([4, 5]), 'is_weekend'] = 1  # 4 and 5 correspond to Fri and Sat
 
@@ -52,13 +52,13 @@ def season_of_date(date):
 
 ## generate df['season']
 # "season" - *category field meteorological seasons: 0-summer ; 1-rainy; 2-winter*
-df['season'] = df['timestamp'].map(season_of_date)
+df['season'] = df['date'].map(season_of_date)
 
 # convert the date format in the timestamp column from yyyy-dd-mm to yyyy-mm-dd
-df['timestamp'] = df['timestamp'].dt.strftime('%Y-%m-%d')
+df['date'] = df['date'].dt.strftime('%Y-%m-%d')
 
 df.to_csv('../csv_files/main_dataset_2.csv', index=False)
-df = pd.read_csv('../csv_files/main_dataset_2.csv', parse_dates=['timestamp'], index_col="timestamp",
+df = pd.read_csv('../csv_files/main_dataset_2.csv', parse_dates=['date'], index_col="date",
                  infer_datetime_format=True)
 print(df.head())
 
@@ -202,7 +202,7 @@ model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', 
 
 history = model.fit(
     X_train, y_train,
-    epochs=300,
+    epochs=150,
     batch_size=512,
     validation_split=0.1,
     shuffle=False
@@ -230,6 +230,7 @@ print('MSE: ', metrics.mean_squared_error(y_test, y_pred))
 print('RMSE: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 print('MAPE: ', metrics.mean_absolute_error(y_test, y_pred, multioutput='uniform_average'))
 
+plt.clf()
 plt.plot(np.arange(0, len(y_train)), y_train_inv.flatten(), 'g', label="history")
 plt.plot(np.arange(len(y_train), len(y_train) + len(y_test)), y_test_inv.flatten(), linewidth=3, marker='.',
          markersize='12', label="true")
@@ -242,6 +243,7 @@ plt.legend()
 plt.savefig('../assets_lstm_2/lstm_test_vs_train_imp_feat.png', bbox_inches='tight')
 plt.show()
 
+plt.clf()
 plt.plot(y_test_inv.flatten(), marker='.', label="true", linewidth=3, markersize='12')
 plt.plot(y_pred_inv.flatten(), 'r', marker='.', label="prediction", linewidth=3, markersize='12')
 plt.ylabel('electricity Consumption (MKWh)')

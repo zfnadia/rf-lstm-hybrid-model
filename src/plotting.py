@@ -2,11 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 # open the csv, chose company_N, where N = {A, B, C or D}
 df = pd.read_csv('../csv_files/main_dataset_lstm_2.csv')
 print(df.head())
-#for box plots
+# for box plots
 df['timestamp'] = pd.to_datetime(df['timestamp'])
 df['total_energy'] = pd.to_numeric(df['total_energy'], errors='coerce')
 df = df.dropna(subset=['total_energy'])
@@ -29,15 +28,15 @@ plt.figure(figsize=(14, 5))
 plt.subplot(1, 2, 1)
 plt.subplots_adjust(wspace=0.2)
 sns.boxplot(x="year", y="total_energy", data=df)
-plt.xlabel('(a) years')
-plt.ylabel('electricity Consumption (MKWh)')
+plt.xlabel('years')
+plt.ylabel('electricity_onsumption (MKWh)')
 sns.despine(left=True)
 plt.tight_layout()
 
 plt.subplot(1, 2, 2)
 sns.boxplot(x="quarter", y="total_energy", data=df)
-plt.xlabel('(b) quarters')
-plt.ylabel('electricity Consumption (MKWh)')
+plt.xlabel('quarters')
+plt.ylabel('electricity_onsumption (MKWh)')
 sns.despine(left=True)
 plt.tight_layout()
 plt.savefig('../assets_lstm_2/yearly_quarterly_new.png', bbox_inches='tight')
@@ -112,8 +111,6 @@ plt.show()
 #
 
 
-
-
 # names = ['Historical Load']
 # datum = [df]
 # fig = plt.figure(figsize=(20, 25))
@@ -171,15 +168,15 @@ plt.show()
 # max_temp = df['max_temp']
 # total_gas = df['total_gas']
 # plt.scatter(max_temp, energy, edgecolors='r')
-# plt.xlabel('(a) temperature (celsius)')
-# plt.ylabel('electricity Consumption (MKWh)')
+# plt.xlabel('temperature (°C)')
+# plt.ylabel('electricity_consumption (MKWh)')
 # sns.despine(left=True)
 # plt.tight_layout()
 #
 # plt.subplot(1, 2, 2)
 # plt.scatter(total_gas, energy, edgecolors='r')
-# plt.xlabel('(b) gas supplied (MMCFD)')
-# plt.ylabel('electricity Consumption (MKWh)')
+# plt.xlabel(' gas supplied (MMCFD)')
+# plt.ylabel('electricity_consumption (MKWh)')
 # sns.despine(left=True)
 # plt.tight_layout()
 # plt.savefig('../assets_lstm_2/scatter_temp_gas_new.png', bbox_inches='tight')
