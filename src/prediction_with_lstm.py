@@ -9,8 +9,8 @@ from keras.models import Sequential
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
 
-df = pd.read_csv("../csv_files/dataset_with_weekday.csv", index_col=0)
-
+df = pd.read_csv('../csv_files/main_dataset_2.csv', parse_dates=['timestamp'], index_col="timestamp",
+                 infer_datetime_format=True)
 
 # df = df.drop(['eve_peak_load_shedding'], axis=1)
 # df = df.drop(['max_temp'], axis=1)
@@ -40,7 +40,7 @@ print(df.head())
 def load_data(stock, seq_len):
     amount_of_features = len(stock.columns)  # 5
     # Calling values returns a numpy.ndarray from a pandas series
-    data = stock.values
+    data = stock.to_numpy()
     sequence_length = seq_len + 1  # index starting from 0
     result = []
 
@@ -87,9 +87,9 @@ window = 22
 X_train, y_train, X_test, y_test = load_data(df, window)
 print(X_train[0], y_train[0])
 
-model = build_model([18, window, 1])
+model = build_model([14, window, 1])
 print(model.summary())
-history = model.fit(X_train, y_train, batch_size=512, epochs=300, validation_split=0.1, verbose=1)
+history = model.fit(X_train, y_train, batch_size=512, epochs=3, validation_split=0.1, verbose=1)
 
 # print(X_test[-1])
 diff = []
