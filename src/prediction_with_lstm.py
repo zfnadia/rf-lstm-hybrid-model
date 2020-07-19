@@ -8,9 +8,11 @@ from keras.layers.recurrent import LSTM
 from keras.models import Sequential
 from sklearn import preprocessing
 from sklearn.preprocessing import MinMaxScaler
+from sklearn import metrics
 
 df = pd.read_csv('../csv_files/main_dataset_2.csv', parse_dates=['timestamp'], index_col="timestamp",
                  infer_datetime_format=True)
+
 
 # df = df.drop(['eve_peak_load_shedding'], axis=1)
 # df = df.drop(['max_temp'], axis=1)
@@ -114,8 +116,6 @@ def denormalize(df, normalized_value):
     new = min_max_scaler.inverse_transform(normalized_value)
     return new
 
-
-from sklearn import metrics
 
 print('MSE: ', metrics.mean_squared_error(y_test, p))
 print('RMSE: ', np.sqrt(metrics.mean_squared_error(y_test, p)))
