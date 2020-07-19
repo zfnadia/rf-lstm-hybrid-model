@@ -3,17 +3,20 @@ from math import sqrt
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.tree import export_graphviz
+from sklearn.metrics import r2_score
+from rfpimp import permutation_importances
 
 df = pd.read_csv('../csv_files/main_dataset_2.csv')
 print(df.info())
 
-timestamp = np.array(df['timestamp'])
+timestamp = np.array(df['date'])
 
-df = df.drop(['timestamp'], axis=1)
+df = df.drop(['date'], axis=1)
 
 # Labels are the values we want to predict
 labels = np.array(df['total_energy'])
@@ -44,6 +47,7 @@ rf.fit(x_train, y_train)
 
 # Use the forest's predict method on the test data
 y_pred = rf.predict(x_test)
+
 # Calculate the absolute errors
 errors = abs(y_pred - y_test)
 rms = sqrt(mean_squared_error(y_test, y_pred))
@@ -67,14 +71,34 @@ feature_importances = [(feature, round(importance, 2)) for feature, importance i
 
 # Sort the feature importances by most important first
 feature_importances = sorted(feature_importances, key=lambda x: x[1], reverse=True)
+print(feature_importances)
 
-plt.bar(range(len(feature_importances)), [val[1] for val in feature_importances], align='center')
-plt.xticks(range(len(feature_importances)), [val[0] for val in feature_importances])
-plt.xticks(rotation=90)
-plt.ylabel('Relative Importance')
-plt.xlabel('Features')
+# getting two lists for features and name
+feature_names = []
+feature_imp = []
+for f in feature_importances:
+    feature_names.append(f[0])
+    feature_imp.append(f[1])
+print(feature_names)
+print(feature_imp)
+
+
+plt.figure(figsize=(10, 8))
+# Plot Searborn bar chart
+sns.barplot(x=feature_imp, y=feature_names)
+# Add chart labels
+plt.xlabel('Relative Importance')
+plt.ylabel('Features')
 plt.savefig('../assets_lstm_2/var_imp_rf.png', bbox_inches='tight')
 plt.show()
+
+# plt.bar(range(len(feature_importances)), [val[1] for val in feature_importances], align='center')
+# plt.xticks(range(len(feature_importances)), [val[0] for val in feature_importances])
+# plt.xticks(rotation=90)
+# plt.ylabel('Relative Importance')
+# plt.xlabel('Features')
+# plt.savefig('../assets_lstm_2/var_imp_rf_prev.png', bbox_inches='tight')
+# plt.show()
 
 # Print out the feature and importances
 [print('Variable: {:20} Importance: {}'.format(*pair)) for pair in feature_importances]

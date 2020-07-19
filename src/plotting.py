@@ -2,45 +2,44 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 # open the csv, chose company_N, where N = {A, B, C or D}
-df = pd.read_csv('main_dataset.csv')
+df = pd.read_csv('../csv_files/main_dataset_lstm_2.csv')
 print(df.head())
-#for box plots
-df['date'] = pd.to_datetime(df['date'])
+# for box plots
+df['timestamp'] = pd.to_datetime(df['timestamp'])
 df['total_energy'] = pd.to_numeric(df['total_energy'], errors='coerce')
 df = df.dropna(subset=['total_energy'])
-df['year'] = df['date'].apply(lambda x: x.year)
-df['quarter'] = df['date'].apply(lambda x: x.quarter)
-df['month'] = df['date'].apply(lambda x: x.month)
-df['day'] = df['date'].apply(lambda x: x.day)
-df=df.loc[:,['date','total_energy', 'year','quarter','month','day']]
-df.sort_values('date', inplace=True, ascending=True)
+df['year'] = df['timestamp'].apply(lambda x: x.year)
+df['quarter'] = df['timestamp'].apply(lambda x: x.quarter)
+df['month'] = df['timestamp'].apply(lambda x: x.month)
+df['day'] = df['timestamp'].apply(lambda x: x.day)
+df = df.loc[:, ['timestamp', 'total_energy', 'year', 'quarter', 'month', 'day']]
+df.sort_values('timestamp', inplace=True, ascending=True)
 df = df.reset_index(drop=True)
-df['weekday'] = pd.to_datetime(df['date']).dt.dayofweek  # monday = 0, sunday = 6
-df['weekend_indi'] = 0          # Initialize the column with default value of 0
+df['weekday'] = pd.to_datetime(df['timestamp']).dt.dayofweek  # monday = 0, sunday = 6
+df['weekend_indi'] = 0  # Initialize the column with default value of 0
 df.loc[df['weekday'].isin([4, 5]), 'weekend_indi'] = 1  # 5 and 6 correspond to Sat and Sun
 print(df.shape)
-print(df.date.min())
-print(df.date.max())
+print(df.timestamp.min())
+print(df.timestamp.max())
 print(df.tail(5))
 
-plt.figure(figsize=(14,5))
-plt.subplot(1,2,1)
+plt.figure(figsize=(14, 5))
+plt.subplot(1, 2, 1)
 plt.subplots_adjust(wspace=0.2)
 sns.boxplot(x="year", y="total_energy", data=df)
-plt.xlabel('(a) Years')
-plt.ylabel('Consumption (MkWh)')
+plt.xlabel('years')
+plt.ylabel('electricity_onsumption (MKWh)')
 sns.despine(left=True)
 plt.tight_layout()
 
-plt.subplot(1,2,2)
+plt.subplot(1, 2, 2)
 sns.boxplot(x="quarter", y="total_energy", data=df)
-plt.xlabel('(b) Quarters')
-plt.ylabel('Consumption (MkWh)')
+plt.xlabel('quarters')
+plt.ylabel('electricity_onsumption (MKWh)')
 sns.despine(left=True)
 plt.tight_layout()
-plt.savefig('yearly_quarterly.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/yearly_quarterly_new.png', bbox_inches='tight')
 plt.show()
 
 # dic={0:'Weekend',1:'Weekday'}
@@ -112,8 +111,6 @@ plt.show()
 #
 
 
-
-
 # names = ['Historical Load']
 # datum = [df]
 # fig = plt.figure(figsize=(20, 25))
@@ -163,24 +160,24 @@ plt.show()
 # plt.savefig('weekday_plot.pdf', bbox_inches='tight')
 # plt.show()
 
-##temp and gas scatter plot
-# plt.figure(figsize=(14,5))
-# plt.subplot(1,2,1)
+# temp and gas scatter plot
+# plt.figure(figsize=(14, 5))
+# plt.subplot(1, 2, 1)
 # plt.subplots_adjust(wspace=0.2)
 # energy = df['total_energy']
 # max_temp = df['max_temp']
 # total_gas = df['total_gas']
 # plt.scatter(max_temp, energy, edgecolors='r')
-# plt.xlabel('(a) Temperature (Celsius)')
-# plt.ylabel('Consumption (MkWh)')
+# plt.xlabel('temperature (°C)')
+# plt.ylabel('electricity_consumption (MKWh)')
 # sns.despine(left=True)
 # plt.tight_layout()
 #
-# plt.subplot(1,2,2)
+# plt.subplot(1, 2, 2)
 # plt.scatter(total_gas, energy, edgecolors='r')
-# plt.xlabel('(b) Gas Supplied (MMCFD)')
-# plt.ylabel('Consumption (MkWh)')
+# plt.xlabel(' gas supplied (MMCFD)')
+# plt.ylabel('electricity_consumption (MKWh)')
 # sns.despine(left=True)
 # plt.tight_layout()
-# plt.savefig('scatter_temp_gas.png', bbox_inches='tight')
+# plt.savefig('../assets_lstm_2/scatter_temp_gas_new.png', bbox_inches='tight')
 # plt.show()
