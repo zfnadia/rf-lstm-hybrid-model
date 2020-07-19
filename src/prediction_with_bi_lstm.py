@@ -171,6 +171,7 @@ train['total_energy'] = total_energy_transformer.transform(train[['total_energy'
 test.loc[:, f_columns] = f_transformer.transform(test[f_columns].to_numpy())
 test['total_energy'] = total_energy_transformer.transform(test[['total_energy']])
 
+
 # get sequences of data
 
 
@@ -197,44 +198,7 @@ print(X_train.shape, y_train.shape)
 
 
 def percentage_difference(y_true, y_pred):
-    return K.mean(abs(y_pred / y_true - 1) * 100)
-
-
-# prediction with important features
-
-# 90 percent of the data is used for training
-train_size2 = int(len(df) * 0.9)
-# rest of the data is used for test
-test_size2 = len(df) - train_size2
-# split actual dataset into test and train variables
-train2, test2 = df.iloc[0:train_size2], df.iloc[train_size2:len(df)]
-
-f_columns_2 = ['max_demand_gen', 'highest_gen', 'min_gen', 'day_peak_gen', 'eve_peak_gen']
-
-
-f_transformer_2 = RobustScaler()
-total_energy_transformer_2 = RobustScaler()
-
-f_transformer_2 = f_transformer_2.fit(train2[f_columns_2].to_numpy())
-total_energy_transformer_2 = total_energy_transformer_2.fit(train[['total_energy']])
-
-train2.loc[:, f_columns_2] = f_transformer_2.transform(train2[f_columns_2].to_numpy())
-train2['total_energy'] = total_energy_transformer_2.transform(train2[['total_energy']])
-
-test2.loc[:, f_columns_2] = f_transformer_2.transform(test2[f_columns_2].to_numpy())
-test2['total_energy'] = total_energy_transformer_2.transform(test2[['total_energy']])
-
-# take last 10 days to predict the data of the next day
-time_steps = 10
-
-# reshape to [samples, time_steps, n_features]
-# (1013, 10, 14) (1013,)
-X_train2, y_train2 = create_dataset(train2, train2.total_energy, time_steps)
-X_test2, y_test2 = create_dataset(test2, test2.total_energy, time_steps)
-
-# reshape to [samples, time_steps, n_features]
-# (1013, 10, 14) (1013,)
-print(X_train2.shape, y_train2.shape)
+    return K.mean(abs(y_pred/y_true - 1) * 100)
 
 modelLstm = keras.Sequential()
 modelLstm.add(
@@ -281,7 +245,7 @@ modelRFBiLstm.add(
     keras.layers.Bidirectional(
             keras.layers.LSTM(
                 units=128,  # units is number of neurons
-                input_shape=(X_train2.shape[1], X_train2.shape[2])  # 10, 14
+                input_shape=(X_train.shape[1], X_train.shape[2])  # 10, 14
             )
         )
 )
@@ -290,7 +254,7 @@ modelRFBiLstm.add(keras.layers.Dense(units=1))
 modelRFBiLstm.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy', percentage_difference])
 
 historyRFBiLstm = modelRFBiLstm.fit(
-    X_train2, y_train2,
+    X_train, y_train,
     epochs=700,
     batch_size=512,
     validation_split=0.1,
@@ -298,31 +262,28 @@ historyRFBiLstm = modelRFBiLstm.fit(
 )
 
 
-# plt.clf()
-# loss = historyRFBiLstm.history['loss']
-# val_loss = historyRFBiLstm.history['val_loss']
-# epochs = range(1, len(loss) + 1)
-# plt.plot(epochs, loss, 'g', label='training loss', linewidth=3)
-# plt.plot(epochs, val_loss, 'y', label='validation loss', linewidth=3)
-# plt.title('training and validation loss')
-# plt.xlabel('epochs')
-# plt.ylabel('loss')
-# plt.legend()
-# plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_all_feat.png', bbox_inches='tight')
-# # plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_imp_feat.png', bbox_inches='tight')
-# plt.show()
+plt.clf()
+loss = historyRFBiLstm.history['loss']
+val_loss = historyRFBiLstm.history['val_loss']
+epochs = range(1, len(loss) + 1)
+plt.plot(epochs, loss, 'g', label='training loss', linewidth=3)
+plt.plot(epochs, val_loss, 'y', label='validation loss', linewidth=3)
+plt.title('training and validation loss')
+plt.xlabel('epochs')
+plt.ylabel('loss')
+plt.legend()
+plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_all_feat.png', bbox_inches='tight')
+# plt.savefig('../assets_lstm_2/rf_bi_lstm_loss_imp_feat.png', bbox_inches='tight')
+plt.show()
 
 y_pred_lstm = modelLstm.predict(X_test)
 y_pred_bi_lstm = modelBiLstm.predict(X_test)
-# important feature
-y_pred_rf_bi_lstm = modelRFBiLstm.predict(X_test2)
-
-# y_train_inv = total_energy_transformer.inverse_transform(y_train.reshape(1, -1))
-y_test_inv = total_energy_transformer_2.inverse_transform(y_test2.reshape(1, -1))
-
+y_pred_rf_bi_lstm = modelRFBiLstm.predict(X_test)
+y_train_inv = total_energy_transformer.inverse_transform(y_train.reshape(1, -1))
+y_test_inv = total_energy_transformer.inverse_transform(y_test.reshape(1, -1))
 y_pred_inv_lstm = total_energy_transformer.inverse_transform(y_pred_lstm)
 y_pred_inv_bi_lstm = total_energy_transformer.inverse_transform(y_pred_bi_lstm)
-y_pred_inv_rf_bi_lstm = total_energy_transformer_2.inverse_transform(y_pred_rf_bi_lstm)
+y_pred_inv_rf_bi_lstm = total_energy_transformer.inverse_transform(y_pred_rf_bi_lstm)
 
 
 def mean_absolute_percentage_error(y_true, y_pred):
@@ -340,19 +301,18 @@ print('RMSE bi-LSTM: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred_bi_lst
 print('MAE bi-LSTM: ', metrics.mean_absolute_error(y_test, y_pred_bi_lstm))
 print('MAPE bi-LSTM: ', mean_absolute_percentage_error(y_test, y_pred_bi_lstm))
 
-print('MSE rf-bi-LSTM: ', metrics.mean_squared_error(y_test2, y_pred_rf_bi_lstm))
-print('RMSE rf-bi-LSTM: ', np.sqrt(metrics.mean_squared_error(y_test2, y_pred_rf_bi_lstm)))
-print('MAE rf-bi-LSTM: ', metrics.mean_absolute_error(y_test2, y_pred_rf_bi_lstm))
-print('MAPE rf-bi-LSTM: ', mean_absolute_percentage_error(y_test2, y_pred_rf_bi_lstm))
+print('MSE rf-bi-LSTM: ', metrics.mean_squared_error(y_test, y_pred_rf_bi_lstm))
+print('RMSE rf-bi-LSTM: ', np.sqrt(metrics.mean_squared_error(y_test, y_pred_rf_bi_lstm)))
+print('MAE rf-bi-LSTM: ', metrics.mean_absolute_error(y_test, y_pred_rf_bi_lstm))
+print('MAPE rf-bi-LSTM: ', mean_absolute_percentage_error(y_test, y_pred_rf_bi_lstm))
 
 plt.plot(y_test_inv.flatten(), 'b', marker='D', label="true value", linewidth=2, markersize='6')
 plt.plot(y_pred_inv_lstm.flatten(), 'y', marker='<', label="LSTM", linewidth=2, markersize='7')
-plt.plot(y_pred_inv_lstm.flatten(), 'g', marker='.', label="bi-LSTM", linewidth=2, markersize='7')
-plt.plot(y_pred_inv_rf_bi_lstm.flatten(), 'r', marker='>', label="rf-bi-lstm-hybrid-model", linewidth=2, markersize='7')
+plt.plot(y_pred_inv_rf_bi_lstm.flatten(), 'r', marker='>', label="bi-LSTM", linewidth=2, markersize='7')
 plt.ylabel('electricity Consumption (MKWh)')
 plt.xlabel('time step')
 plt.legend()
-plt.savefig('../assets_lstm_2/performance_comparison_lstm-bilstm-hybrid.png', bbox_inches='tight')
+plt.savefig('../assets_lstm_2/total_test_vs_train_all_feat.png', bbox_inches='tight')
 # plt.savefig('../assets_lstm_2/total_test_vs_train_imp_feat.png', bbox_inches='tight')
 plt.show()
 
